@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        includes:
+        include:
           - os: macos-latest
             target: x86_64-apple-darwin
             filename: darwin-amd64
