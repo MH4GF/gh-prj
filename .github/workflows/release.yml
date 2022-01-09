@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+            target: x86_64-apple-darwin, aarch64-apple-darwin, x86_64-unknown-linux-musl
       - uses: cli/gh-extension-precompile@v1
         with:
           build_script_override: "script/build.sh"
