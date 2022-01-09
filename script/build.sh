@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
-echo "TODO implement this script."
-echo "It should build binaries in dist/<platform>-<arch>[.exe] as needed."
-exit 1
+
+platforms="$(cat << EOL
+  [
+    { "target": "x86_64-apple-darwin", "name": "darwin-amd64" },
+    { "target": "aarch64-apple-darwin", "name": "darwin-arm64" },
+    { "target": "x86_64-unknown-linux-musl", "name": "linux-amd64" }
+  ]
+EOL
+)"
+platforms_end_index="$(echo "${platforms}" | jq '. | length - 1')"
+
+for i in $(seq 0 "${platforms_end_index}"); do
+    target=$(echo "${platforms}" | jq -r ".[${i}].target")
+    name=$(echo "${platforms}" | jq -r ".[${i}].name")
+
+    cargo build --release --locked --target $target
+    mv "target/${target}/release/gh-prj" "./dist/${name}"
+done
