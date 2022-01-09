@@ -4,7 +4,6 @@ platforms="$(cat << EOL
   [
     { "target": "x86_64-apple-darwin", "name": "darwin-amd64" },
     { "target": "aarch64-apple-darwin", "name": "darwin-arm64" },
-    { "target": "x86_64-unknown-linux-musl", "name": "linux-amd64" }
   ]
 EOL
 )"
@@ -14,6 +13,6 @@ for i in $(seq 0 "${platforms_end_index}"); do
     target=$(echo "${platforms}" | jq -r ".[${i}].target")
     name=$(echo "${platforms}" | jq -r ".[${i}].name")
 
-    cross build --release --target $target
+    cargo build --release --target $target
     mv "target/${target}/release/gh-prj" "./dist/${name}"
 done
