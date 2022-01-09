@@ -12,17 +12,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        target: [x86_64-apple-darwin, aarch64-apple-darwin, x86_64-unknown-linux-musl]
         includes:
-          - target: x86_64-apple-darwin
-            os: macos-latest
+          - os: macos-latest
+            target: x86_64-apple-darwin
             filename: darwin-amd64
-          - target: aarch64-apple-darwin
-            os: macos-latest
-            filename: darwin-arm64
-          - target: x86_64-unknown-linux-musl
-            os: ubuntu-latest
-            filename: darwin-arm64
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            filename: linux-amd64
 
     steps:
       - uses: actions/checkout@v2
