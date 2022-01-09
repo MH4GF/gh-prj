@@ -14,6 +14,6 @@ for i in $(seq 0 "${platforms_end_index}"); do
     target=$(echo "${platforms}" | jq -r ".[${i}].target")
     name=$(echo "${platforms}" | jq -r ".[${i}].name")
 
-    cargo build --release --locked --target $target
+    cargo build --release --target $target
     mv "target/${target}/release/gh-prj" "./dist/${name}"
 done
