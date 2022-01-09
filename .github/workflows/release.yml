@@ -8,21 +8,30 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    name: Build for ${{ matrix.os }} ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        includes:
+          - target: x86_64-apple-darwin
+            os: macos-latest
+            filename: darwin-amd64
+          - target: aarch64-apple-darwin
+            os: macos-latest
+            filename: darwin-arm64
+          - target: x86_64-unknown-linux-musl
+            os: ubuntu-latest
+            filename: darwin-arm64
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          target: x86_64-apple-darwin
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: aarch64-apple-darwin
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: x86_64-unknown-linux-musl
+          target: ${{ matrix.target }}
       - uses: cli/gh-extension-precompile@v1
         with:
           build_script_override: "script/build.sh"
+        env:
+          TARGET: ${{ matrix.target }}
+          FILENAME: ${{ matrix.filename }}
