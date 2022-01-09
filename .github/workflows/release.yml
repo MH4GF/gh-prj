@@ -8,27 +8,22 @@ permissions:
 
 jobs:
   release:
-    name: Build for ${{ matrix.os }} ${{ matrix.target }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: macos-latest
-            target: x86_64-apple-darwin
-            filename: darwin-amd64
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-musl
-            filename: linux-amd64
-
+    # `cross` can't build binaries for darwin on Docker.
+    # Fallback to cargo build, so runs on mac os that can build
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          target: ${{ matrix.target }}
+          target: x86_64-apple-darwin
+      - uses: actions-rs/toolchain@v1
+        with:
+          target: aarch64-apple-darwin
+      - uses: actions-rs/toolchain@v1
+        with:
+          target: x86_64-unknown-linux-musl
+      - run: cargo install cross
       - uses: cli/gh-extension-precompile@v1
         with:
           build_script_override: "script/build.sh"
-        env:
-          TARGET: ${{ matrix.target }}
-          FILENAME: ${{ matrix.filename }}
