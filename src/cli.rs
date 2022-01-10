@@ -1,5 +1,4 @@
 use octocrab::models::Project;
-use std::io::Error;
 use std::process::{Command, Output};
 use std::str::{self};
 use structopt::StructOpt;
@@ -29,20 +28,22 @@ pub enum Cmd {
 pub fn exec_cmd(args: CommandLineArgs) {
     let CommandLineArgs { cmd } = args;
     match cmd {
-        Cmd::List { web } => list_prj(),
-        Cmd::View { web } => view_prj(),
+        Cmd::List { .. } => list_prj(),
+        Cmd::View { .. } => view_prj(),
     }
 }
 
 fn list_prj() {
     let result = gh(&["api", "/repos/{owner}/{repo}/projects"]);
     let projects = extract_projects(result);
-    if projects.len() != 0 {
-        let project = &projects[0];
-        println!("{:#?}", project.number);
-    } else {
+    if projects.is_empty() {
         // TODO: display owner/repo
-        println!("This repository does not found any projects")
+        println!("This repository does not found any projects");
+        return;
+    }
+
+    for prj in projects {
+        println!("{:#?}\n", prj.number);
     }
 }
 
