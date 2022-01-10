@@ -1,4 +1,4 @@
-# gh-prj: An extension to browse projects
+# gh-prj: An extension to browse [projects](https://docs.github.com/en/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards)
 
 ## Installation
 
