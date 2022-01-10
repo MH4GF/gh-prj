@@ -13,15 +13,23 @@ pub struct CommandLineArgs {
 #[derive(StructOpt, Debug)]
 pub enum Cmd {
     /// List Projects in this repository
+    #[structopt(usage = "gh prj list [FLAGS]")]
     List {
-        #[structopt(short = "w", long)]
-        web: bool,
+        /// Open the browser to list the project(s)
+        #[structopt(short = "w", long = "web")]
+        web_mode: bool,
     },
 
     /// Display the information about a Project
+    #[structopt(usage = "gh prj view <number> [FLAGS]")]
     View {
-        #[structopt(short = "w", long)]
-        web: bool,
+        /// issue number or url
+        #[structopt(name = "number")]
+        arg: isize,
+
+        /// Open a project in the browser
+        #[structopt(short = "w", long = "web")]
+        web_mode: bool,
     },
 }
 
