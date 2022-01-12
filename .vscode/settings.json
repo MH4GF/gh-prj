@@ -2,5 +2,6 @@
     "[rust]": {
         "editor.defaultFormatter": "rust-lang.rust",
         "editor.formatOnSave": true,
-    }
+    },
+    "cSpell.words": ["structopt", "octocrab"],
 }

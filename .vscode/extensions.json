@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "rust-lang.rust",
+        "matklad.rust-analyzer"
+    ]
+}

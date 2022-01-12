@@ -1,5 +1,6 @@
 use structopt::StructOpt;
 mod cli;
+mod cmd;
 use cli::CommandLineArgs;
 
 fn main() {
