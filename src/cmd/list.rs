@@ -12,7 +12,7 @@ pub fn list_prj() {
     }
 
     for prj in projects {
-        println!("{:?} {:?}", prj.number, prj.name);
+        println!("{} {}", prj.number, prj.name);
     }
 }
 
