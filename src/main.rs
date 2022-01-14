@@ -1,7 +1,6 @@
+use gh_prj::cli;
+use gh_prj::cli::CommandLineArgs;
 use structopt::StructOpt;
-mod cli;
-mod cmd;
-use cli::CommandLineArgs;
 
 fn main() {
     let args = CommandLineArgs::from_args();
