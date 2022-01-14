@@ -19,7 +19,7 @@ dependencies = ["clean"]
 
 [tasks.clippy]
 command = "cargo"
-args = ["clippy"]
+args = ["clippy", "--", "-D", "warnings"]
 
 [tasks.lint]
 dependencies = [
