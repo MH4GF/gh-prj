@@ -29,5 +29,5 @@ pub fn view_prj(web_mode: bool, arg: isize) -> bool {
     println!("{:?}", project);
     println!("Not implemented view command");
 
-    return true;
+    true
 }

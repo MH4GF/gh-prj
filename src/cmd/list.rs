@@ -15,7 +15,7 @@ pub fn list_prj() -> bool {
         println!("{:?} {:?}", prj.number, prj.name);
     }
 
-    return true;
+    true
 }
 
 fn extract_projects(result: Output) -> Vec<Project> {
