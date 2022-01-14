@@ -1,5 +1,5 @@
 [package]
-name = "gh-prj"
+name = "gh_prj"
 version = "0.1.17"
 edition = "2021"
 
