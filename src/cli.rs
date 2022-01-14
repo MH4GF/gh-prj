@@ -32,7 +32,7 @@ pub enum Cmd {
     },
 }
 
-pub fn exec_cmd(args: CommandLineArgs) {
+pub fn exec_cmd(args: CommandLineArgs) -> bool {
     let CommandLineArgs { cmd } = args;
     match cmd {
         Cmd::List { .. } => list::list_prj(),

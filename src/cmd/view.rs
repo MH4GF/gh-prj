@@ -1,7 +1,7 @@
 use crate::cmd::{gh, open};
 use octocrab::models::Project;
 
-pub fn view_prj(web_mode: bool, arg: isize) {
+pub fn view_prj(web_mode: bool, arg: isize) -> bool {
     let query = format!(
         "limit(1; .[] | select(.number == {i}))",
         i = &arg.to_string()
@@ -10,7 +10,7 @@ pub fn view_prj(web_mode: bool, arg: isize) {
     let stdout = std::str::from_utf8(&result.stdout).expect("Failed to covert str from API result");
     if stdout.is_empty() {
         println!("Failed to execute gh command: {:?}", &result.stderr);
-        return;
+        return false;
     }
 
     let project: Project =
@@ -22,10 +22,12 @@ pub fn view_prj(web_mode: bool, arg: isize) {
         open(&[&url_str]);
         println!("Opening {:?} in your browser.", &url_str);
 
-        return;
+        return true;
     }
 
     // TODO
     println!("{:?}", project);
     println!("Not implemented view command");
+
+    return true;
 }

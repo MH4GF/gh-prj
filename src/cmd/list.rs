@@ -2,18 +2,20 @@ use crate::cmd::gh;
 use octocrab::models::Project;
 use std::process::Output;
 
-pub fn list_prj() {
+pub fn list_prj() -> bool {
     let result = gh(&["api", "/repos/{owner}/{repo}/projects"]);
     let projects = extract_projects(result);
     if projects.is_empty() {
         // TODO: display owner/repo
         println!("This repository does not found any projects");
-        return;
+        return false;
     }
 
     for prj in projects {
         println!("{:?} {:?}", prj.number, prj.name);
     }
+
+    return true;
 }
 
 fn extract_projects(result: Output) -> Vec<Project> {
