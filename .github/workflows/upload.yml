@@ -26,3 +26,4 @@ jobs:
           EXTRA_FILES: "README.md LICENSE"
           ARCHIVE_TYPES: tar.gz
           NAME: ${{ matrix.name }}
+          PRE_BUILD: pre-build.sh
