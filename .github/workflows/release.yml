@@ -8,19 +8,9 @@ permissions:
 
 jobs:
   release:
-    # `cross` can't build binaries for darwin on Docker.
-    # Fallback to cargo build, so runs on mac os that can build
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: x86_64-apple-darwin
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: aarch64-apple-darwin
-      - uses: cli/gh-extension-precompile@v1
-        with:
-          build_script_override: "script/build.sh"
+      - uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
